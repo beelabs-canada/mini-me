@@ -9,7 +9,7 @@ class HTTPHandler(SimpleHTTPRequestHandler):
     def translate_path(self, path):
         path = SimpleHTTPRequestHandler.translate_path(self, path)
         relpath = os.path.relpath(path, os.getcwd())
-        fullpath = os.path.join(self.server.base_path, relpath)
+        fullpath = os.path.join( self.server.base_path, relpath )
         return fullpath
 
 
