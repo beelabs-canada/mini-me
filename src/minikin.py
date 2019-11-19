@@ -3,7 +3,7 @@ from core.site import Site
 from core.server import HTTPServer
 from core.watcher import Doberman
 
-site = Site.getInstance()
+site = Site.instance()
 # httpserver
 httpd = HTTPServer(site.destination, ( "", 8000 ))
 # file watcher

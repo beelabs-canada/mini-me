@@ -17,7 +17,7 @@ class Site():
     safe = False
     include = [".htaccess"]
     encoding = "utf-8"
-    markdown_ext = [ "markdown","mkdown","mkdn","mkd","md" ]
+    markdown_ext = [ ".markdown",".mkdown",".mkdn",".mkd",".md" ]
     strict_front_matter = False
 
     # Plugins
@@ -47,15 +47,27 @@ class Site():
     defaults = []
 
     liquid = { "error_mode" : "warn", "strict_filters" :False, "strict_variables" : False }
+
+    _instance = None
      
-    def __init__(self, config='_config.yml'):
+    def __init__(self):
         # Lets process a config file if present
+        raise RuntimeError('Call instance() instead')
 
-        if ( os.path.exists( os.path.join( os.getcwd(), config ) ) ):
-            _config = os.path.abspath( os.path.join( os.getcwd(), config ) ) 
-            self._load( _config )
+    @classmethod
+    def instance(cls):
+        if cls._instance is None:
+            
+            print('Creating new instance')
+            
+            cls._instance = cls.__new__(cls)
+            
+            _config = os.path.abspath( os.path.join( os.getcwd(), '_config.yml') ) 
+            cls._load( cls, _config )
 
-        self.sync()
+            cls.sync(cls)
+
+        return cls._instance
 
     """
      hasmethod: an internal method to introspection of an object
@@ -98,4 +110,4 @@ class Site():
         print('[minikin] .. syncing "_site" folder with resources')
         if os.path.isdir( self.destination ):
             shutil.rmtree( self.destination, False )
-        shutil.copytree( self.source, self.destination, ignore=shutil.ignore_patterns('_load', '_site','_includes','_layouts','.git*', '.git', '_plugins', '*_config.y*l') )
+        shutil.copytree( self.source, self.destination, ignore=shutil.ignore_patterns('_load', '_site','_includes','_layouts','.git*', '.git', '_plugins', '*_config.y*l', '_pages') )
