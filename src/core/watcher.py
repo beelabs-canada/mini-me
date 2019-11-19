@@ -1,16 +1,30 @@
-
 import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from core.pipeline import Pipeline
 
 class Glare(FileSystemEventHandler):
-    def on_modified(self, event):
-        pipeline = Pipeline()
+    
+    ignore = [ '_site' ]
 
-        print("Got it! -> " + event.src_path)
+    def ignored(self, event):
 
-        pipeline.process( event.src_path )
+        if event.is_directory:
+            return True
+
+        if any( [i for i in self.ignore if os.sep + i + os.sep in event.src_path ]  ):
+            return True
+
+        return False
+
+  
+    def on_any_event(self, event):
+
+        if self.ignored(event):
+            return
+
+        pipeline = Pipeline( event.src_path )
+        pipeline.process()
 
 
 class Doberman(object):

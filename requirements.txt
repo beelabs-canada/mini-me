@@ -1,0 +1,10 @@
+argh>=0.26.2
+liquidpy>=0.2.3
+pathtools>=0.1.2
+pkg-resources>=0.0.0
+pprint>=0.1
+python-frontmatter>=0.4.5
+PyYAML>=5.1.2
+six>=1.13.0
+termcolor>=1.1.0
+watchdog>=0.9.0

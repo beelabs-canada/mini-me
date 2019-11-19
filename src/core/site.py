@@ -6,8 +6,8 @@ class Site():
     # Where things are
     source = os.getcwd()
     destination = os.path.join(os.getcwd(), '_site')
-    collections_dir = os.getcwd()
-    plugins_dir = os.path.join(os.getcwd(), '_plugins')
+    # collections_dir = os.getcwd()
+    # plugins_dir = os.path.join(os.getcwd(), '_plugins')
     layouts_dir = os.path.join(os.getcwd(), '_layouts')
     data_dir = os.path.join(os.getcwd(), '_data')
     includes_dir = os.path.join(os.getcwd(), '_includes')
